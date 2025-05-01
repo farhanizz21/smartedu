@@ -26,27 +26,48 @@ class Ujian extends CI_Controller {
 		
 		$user_login = $this->session->userdata('uuid'); 
 		$peserta = []; 
+		// foreach ($ujian as $u) {
+		// 	$pengerjaan = false;
+		// 	$pengumpulan = false;
+		// 	$peserta[$u->uuid] = $this->siswa_model->get_by_ujian($u->uuid);
+			
+		// 	foreach ($peserta as $p){
+		// 		foreach($p as $q){
+		// 			if ($q->ujian_uuid == $u->uuid && $q->siswa_uuid == $user_login) {
+		// 				$pengerjaan = true;
+		// 				break;
+		// 			} 
+		// 			if ($this->ujian_model->get_pengumpulan_siswa($q->ujian_uuid, $user_login) != NULL) {
+		// 				$pengumpulan = true;
+		// 				break;
+						
+		// 			}
+		// 		}
+		// 	}
+		// 	$u->pengumpulan = $pengumpulan;
+		// 	$u->pengerjaan = $pengerjaan;
+		// }
+
 		foreach ($ujian as $u) {
 			$pengerjaan = false;
 			$pengumpulan = false;
+		
 			$peserta[$u->uuid] = $this->siswa_model->get_by_ujian($u->uuid);
-			
-			foreach ($peserta as $p){
-				foreach($p as $q){
-					if ($q->ujian_uuid == $u->uuid && $q->siswa_uuid == $user_login) {
-						$pengerjaan = true;
-						// break;
-					} 
-					if ($this->ujian_model->get_pengumpulan_siswa($q->ujian_uuid, $user_login) != NULL) {
-						$pengumpulan = true;
-						// break;
-						
-					}
+		
+			foreach ($peserta[$u->uuid] as $q) {
+				if ($q->ujian_uuid == $u->uuid && $q->siswa_uuid == $user_login) {
+					$pengerjaan = true;
+				}
+		
+				if ($this->ujian_model->get_pengumpulan_siswa($q->ujian_uuid, $user_login) !== NULL) {
+					$pengumpulan = true;
 				}
 			}
+		
 			$u->pengumpulan = $pengumpulan;
 			$u->pengerjaan = $pengerjaan;
 		}
+		
 		
 		$data = array(
 			'ujian' => $ujian,
