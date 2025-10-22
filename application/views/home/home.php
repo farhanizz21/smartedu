@@ -109,7 +109,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section dark-background">
 
-            <img src="assets_dashboard/img/unesa.webp" alt="" data-aos="fade-in">
+            <img src="assets_dashboard/img/bg.jpg" alt="" data-aos="fade-in">
 
             <div class="container py-5" data-aos="fade-up" data-aos-delay="100">
                 <div class="row justify-content-start">
